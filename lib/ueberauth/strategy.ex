@@ -405,7 +405,10 @@ defmodule Ueberauth.Strategy do
   end
 
   defp add_state_param(conn, strategy) do
-    state = create_state_param()
+    #
+    # We keep the value of :ueberauth_state_param set from an external Plug.
+    # Otherwise, we create it.
+    state = conn.private[:ueberauth_state_param] || create_state_param()
 
     conn
     |> Conn.put_resp_cookie(@state_param_cookie_name, state,
