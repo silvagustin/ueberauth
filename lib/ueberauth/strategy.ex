@@ -354,7 +354,8 @@ defmodule Ueberauth.Strategy do
 
   defp state_param_matches?(conn) do
     param_cookie = conn.params["state"]
-    not is_nil(param_cookie) and param_cookie == get_state_cookie(conn)
+    stored_state = conn.private[:ueberauth_stored_state_param] || get_state_cookie(conn)
+    not is_nil(param_cookie) and param_cookie == stored_state
   end
 
   defp add_state_mismatch_error(conn, strategy) do
