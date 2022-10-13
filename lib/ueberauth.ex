@@ -1,6 +1,6 @@
 defmodule Ueberauth do
   @moduledoc """
-  Ueberauth is two-phase authentication framework that provides a clear API -
+  Ueberauth is a two-phase authentication framework that provides a clear API -
   allowing for many strategies to be created and shared within the community. It
   is heavily inspired by [Omniauth](https://github.com/intridea/omniauth). You
   could call it a port but it is significantly different in operation - but
@@ -89,7 +89,7 @@ defmodule Ueberauth do
   `Ueberauth.Auth` struct as the `provider` field.
 
   Once you've setup your providers, in your router you need to configure the plug
-  to run. The plug should run before you application routes.
+  to run. The plug should run before your application routes.
 
   In phoenix, plug this module in your controller:
 
@@ -344,8 +344,10 @@ defmodule Ueberauth do
   end
 
   defp run(conn, {module, :run_request, options}) do
-    to_request_path = Path.join(["/", conn.script_name, options.request_path])
-    to_callback_path = Path.join(["/", conn.script_name, options.callback_path])
+    route_base_path = Enum.map_join(conn.script_name, &"/#{&1}")
+
+    to_request_path = Path.join(["/", route_base_path, options.request_path])
+    to_callback_path = Path.join(["/", route_base_path, options.callback_path])
     to_options = %{options | request_path: to_request_path, callback_path: to_callback_path}
 
     conn
@@ -354,8 +356,10 @@ defmodule Ueberauth do
   end
 
   defp run(conn, {module, :run_callback, options}) do
-    to_request_path = Path.join(["/", conn.script_name, options.request_path])
-    to_callback_path = Path.join(["/", conn.script_name, options.callback_path])
+    route_base_path = Enum.map_join(conn.script_name, &"/#{&1}")
+
+    to_request_path = Path.join(["/", route_base_path, options.request_path])
+    to_callback_path = Path.join(["/", route_base_path, options.callback_path])
     to_options = %{options | request_path: to_request_path, callback_path: to_callback_path}
 
     conn

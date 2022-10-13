@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.3 - 2022-09-13
+
+- Fix `@spec` for `Ueberauth.Strategy.Helpers.set_errors!/2`
+
+## 0.10.2 - 2022-08-11
+
+- Replace `:csrf_attack` with `"csrf_attack"` so it matches the type specs in `Ueberauth.Failure.Error` [#169](https://github.com/ueberauth/ueberauth/pull/169)
+
+## 0.10.1 - 2022-07-05
+
+- Fix callback URL not mounted right when router has nested paths [#166](https://github.com/ueberauth/ueberauth/pull/166)
+
 ## 0.10.0 - 2022-06-16
 
 - Add `state_param_cookie_same_site` to strategy options to support different SameSite values [#148](https://github.com/ueberauth/ueberauth/pull/164#issuecomment-1155406862)
